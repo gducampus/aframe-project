@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.2.0/dist/aframe-extras.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-cursor-teleport@1.4.0/dist/aframe-cursor-teleport-component.min.js"></script>
+    <style>
+         #prenom {
+            position: absolute; /* Positionne l'élément de manière absolue sur la page */
+            top: 0; /* En haut de la page */
+            left: 0; /* À gauche de la page */
+            z-index: 999; /* S'assure qu'il est au-dessus de la scène A-Frame */
+            background-color: rgba(255, 255, 255, 0.7); /* Rend le fond légèrement transparent */
+            padding: 10px; /* Ajoute un peu de padding autour du texte */
+        }
+    </style>
+</head>
+<body>
+    <div id="prenom">Nom en cours de chargement</div>
+    <a-scene cursor="rayOrigin: mouse">
+        <a-assets>
+            <!-- images --> 
+            <img id="ground" src="images/ground.jpg">
+            <img id="sky" src="images/clear-sunny-sky.jpg">
+           
+            
+            <!-- audio --> 
+            <audio id="sound" src="audio/sound.mp3" preload="auto"></audio>
+           
+            <!-- models -->    
+            <a-asset-item id="girafe" src="assets/girafe/scene.gltf"></a-asset-item>
+            <a-asset-item id="lion" src="assets/baby_lion/scene.gltf"></a-asset-item>
+            <a-asset-item id="turtle" src="assets/model_47a_-_loggerhead_sea_turtle/scene.gltf"></a-asset-item>
+            <a-asset-item id="rhino" src="assets/model_56a_-_southern_white_rhino/scene.gltf"></a-asset-item>
+            <a-asset-item id="veg1" src="assets/low_poly_vegetation_for_games/scene.gltf"></a-asset-item>
+        </a-assets>
+        <a-sound src="#sound" autoplay="true" volume="0.0" loop="true"></a-sound>
+        <a-sky src="#sky"></a-sky>
+        <a-plane material="color:#FFFFFF; src:#ground; repeat:1000 1000" position="0 0 -4" rotation="-90 0 0" width="1000" height="1000"></a-plane>
+        
+        <!-- Végétations -->
+        <a-gltf-model src="#veg1" position="0 0 -10"></a-gltf-model>
+        <a-gltf-model src="#veg1" position="10 0 35"></a-gltf-model>
+        <a-gltf-model src="#veg1" position="20 0 -10"></a-gltf-model>
+
+        <!-- animals -->
+        <a-gltf-model src="#girafe" position="5 0 -15" scale="0.8 0.8 0.8" animation-mixer></a-gltf-model>
+        <a-gltf-model src="#lion" position="-25 0 -3" scale="4 4 4" animation-mixer></a-gltf-model>
+        <a-gltf-model src="#turtle" position="-5 5 -15" scale="0.2 0.2 0.2" rotation="0 180 0" animation-mixer></a-gltf-model>
+        <a-gltf-model src="#rhino" position="25 0 -3" scale="4 4 4" animation-mixer></a-gltf-model>
+
+        <!--Teleport-->
+        <a-entity id="cameraRig" cursor-teleport="cameraRig: #cameraRig; cameraHead: #head">
+            <a-entity id="head" position="0 1.52 0" camera look-controls="reverseMouseDrag: true">
+            </a-entity>
+        </a-entity>
+       
+    
+    </a-scene>
+
+ <script>
+    let lprenom = localStorage.getItem('nom');
+    document.getElementById('prenom').innerHTML="Bonjour "+ lprenom;
+
+    
+ </script>
+</body>
+</html>
